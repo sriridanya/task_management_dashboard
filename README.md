@@ -10,7 +10,8 @@ This is a simple task management dashboard built with React, Redux, and Material
 - **Filter Tasks**: Filter tasks by status (completed, pending) and priority (high, medium, low).
 - **Sort Tasks**: Sort tasks by title or due date.
 - **Task Completion**: Mark tasks as completed or pending.
-
+-**Search Functionality**: a search bar to quickly find tasks based on title or description.
+  
 ## Technologies Used
 
 - **React**: JavaScript library for building user interfaces.
