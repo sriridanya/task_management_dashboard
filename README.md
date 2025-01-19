@@ -113,7 +113,7 @@ The Redux store manages the state of the tasks. Here is the basic structure of t
   ]
 }
 
-
+```
 ## License
 
 This project is not licensed.
