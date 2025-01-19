@@ -30,7 +30,7 @@ Before you begin, ensure you have the following installed:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/sriridanya/task-management-dashboard.git
+git clone https://github.com/sriridanya/task_management_dashboard.git
 
 
 
