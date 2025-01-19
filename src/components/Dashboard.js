@@ -5,6 +5,7 @@ import { Card, CardContent, Paper, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Bar } from 'react-chartjs-2';
 import WeatherComponent from './WeatherComponent';
+import Chart from 'chart.js/auto';
 
 const Dashboard = () => {
   const tasks = useSelector(state => state.tasks.tasks);// Get tasks from Redux store

@@ -9,6 +9,8 @@ const TaskList = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false); // State for delete confirmation dialog
+  const [selectedTaskId, setSelectedTaskId] = useState(null); // Task ID to be deleted
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -86,6 +88,25 @@ const TaskList = () => {
     setEditingTaskId(null);
   };
 
+  // Handle delete confirmation
+  const handleDeleteClick = (taskId) => {
+    setSelectedTaskId(taskId);
+    setOpenDeleteDialog(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedTaskId !== null) {
+      dispatch(deleteTask(selectedTaskId)); // Dispatch delete task action
+    }
+    setOpenDeleteDialog(false); // Close confirmation dialog
+    setSelectedTaskId(null); // Clear selected task
+  };
+
+  const handleDeleteCancel = () => {
+    setOpenDeleteDialog(false); // Close confirmation dialog
+    setSelectedTaskId(null); // Clear selected task
+  };
+
   if (!tasks) {
     return <CircularProgress />;
   }
@@ -143,7 +164,6 @@ const TaskList = () => {
             onChange={handleSearchChange}
             placeholder="Search by title/description"
             style={{ backgroundColor: '#fff' }}
-            
           />
         </Grid>
       </Grid>
@@ -164,7 +184,7 @@ const TaskList = () => {
                 <Button onClick={() => dispatch(toggleCompletion(task.id))}>
                   {task.completed ? 'Mark as Pending' : 'Mark as Completed'}
                 </Button>
-                <Button color="error" onClick={() => dispatch(deleteTask(task.id))}>Delete</Button>
+                <Button color="error" onClick={() => handleDeleteClick(task.id)}>Delete</Button>
                 <Button color="primary" onClick={() => handleEditClick(task.id)}>Edit</Button>
               </CardContent>
             </Card>
@@ -192,6 +212,18 @@ const TaskList = () => {
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)} color="secondary">Cancel</Button>
           <Button onClick={handleSaveChanges} color="primary">Save Changes</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={openDeleteDialog} onClose={handleDeleteCancel}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this task?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="secondary">Cancel</Button>
+          <Button onClick={handleDeleteConfirm} color="error">Delete</Button>
         </DialogActions>
       </Dialog>
     </Box>
